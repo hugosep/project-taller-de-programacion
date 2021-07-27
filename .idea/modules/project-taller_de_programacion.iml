@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.6:jar" level="project" />
-    <orderEntry type="library" name="activemq" level="project" />
-    <orderEntry type="library" name="activemq-all-5.16.2" level="project" />
+    <orderEntry type="library" name="activemq-all-5.16.21" level="project" />
   </component>
 </module>

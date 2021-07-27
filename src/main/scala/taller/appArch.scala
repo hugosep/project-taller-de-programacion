@@ -2,12 +2,20 @@ package taller
 
 import org.apache.activemq.ActiveMQConnectionFactory
 
-import javax.jms.Session
+import java.io.{BufferedWriter, File, FileWriter, PrintWriter}
 
-object appArch {
+class appArch {
   val activeMQURL: String = "tcp://localhost:61616"
 
-  def main(args: Array[String]) = {
+  def enviarArchivo(): Boolean = {
+    return false
+  }
+
+  def extraer(): Unit = {
+
+  }
+
+  def main(args: Array[String]): Unit = {
     val cFactory = new ActiveMQConnectionFactory()
     val connection = cFactory.createConnection()
     connection.start()
@@ -16,6 +24,19 @@ object appArch {
 
     val productor = session.createProducer(queue)
     val msgStr = session.createTextMessage("Hola Mundo")
+    val pathFile = ""
+    val file = new File(pathFile)
+
+    val printW = new PrintWriter(file)
+
+    printW.write("")
+    printW.close() // las acciones solo se hacen cuando se ejecuta el close
+
+    val buffW = new BufferedWriter(new FileWriter(file))
+    buffW.write("")
+    buffW.close()
+
+
   }
 
 }
