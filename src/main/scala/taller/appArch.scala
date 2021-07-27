@@ -11,8 +11,8 @@ class appArch {
     return false
   }
 
-  def extraer(): Unit = {
-
+  def extraer(pathFile: String): Unit = {
+    val lines: List[String] = servicioArchivo.leer(pathFile)
   }
 
   def main(args: Array[String]): Unit = {
