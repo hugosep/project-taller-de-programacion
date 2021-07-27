@@ -3,6 +3,7 @@ package taller
 import org.apache.activemq.ActiveMQConnectionFactory
 
 import java.io.{BufferedWriter, File, FileWriter, PrintWriter}
+import javax.jms.Session
 
 class appArch {
   val activeMQURL: String = "tcp://localhost:61616"
