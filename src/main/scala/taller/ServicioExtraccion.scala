@@ -5,7 +5,7 @@ import org.apache.activemq.ActiveMQConnectionFactory
 import java.sql.{Connection, DriverManager}
 import javax.jms.{Session, TextMessage}
 
-object servicioExtraccion {
+object ServicioExtraccion {
   val driver = "com.mysql.jdbc.Driver"
   val url = "jdbc:mysql://localhost:3306/MUSICA"
   val username = "root"

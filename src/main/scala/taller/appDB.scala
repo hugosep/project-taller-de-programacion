@@ -34,7 +34,7 @@ class appDB {
 
   def addData(data: String): Int = {
     try {
-      servicioDB.add(data)
+      ServicioDB.add(data)
       1
     } catch {
       case _: Exception => -1

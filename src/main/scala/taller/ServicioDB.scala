@@ -3,7 +3,7 @@ package taller
 import java.sql.DriverManager
 import java.sql.Connection
 
-object servicioDB {
+object ServicioDB {
 
   val host: String = ""
 
