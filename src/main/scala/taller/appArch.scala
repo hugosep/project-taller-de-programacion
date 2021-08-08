@@ -7,16 +7,18 @@ import javax.jms.Session
 
 class appArch {
   val activeMQURL: String = "tcp://localhost:61616"
+  val archivo: String = "data.txt"
+  var lines: List[String] = _
 
-  def enviarArchivo(): Boolean = {
-    return false
+  def enviarArchivo(data: List[String]): Boolean = {
+
   }
 
-  def extraer(pathFile: String): Unit = {
-    val lines: List[String] = servicioArchivo.leer(pathFile)
+  def extraer(archivo: String): Unit = {
+    lines = ServicioArchivo.leer(archivo)
   }
 
-  def main(args: Array[String]): Unit = {
+  def enviarArchivo(data: List[String]): Boolean = {
     val cFactory = new ActiveMQConnectionFactory()
     val connection = cFactory.createConnection()
     connection.start()
@@ -25,19 +27,28 @@ class appArch {
 
     val productor = session.createProducer(queue)
     val msgStr = session.createTextMessage("Hola Mundo")
-    val pathFile = ""
-    val file = new File(pathFile)
+    val file = new File(archivo)
 
-    val printW = new PrintWriter(file)
+    try {
+      val printW = new PrintWriter(file)
 
-    printW.write("")
-    printW.close() // las acciones solo se hacen cuando se ejecuta el close
+      printW.write("")
+      printW.close() // las acciones solo se hacen cuando se ejecuta el close
 
-    val buffW = new BufferedWriter(new FileWriter(file))
-    buffW.write("")
-    buffW.close()
+      val buffW = new BufferedWriter(new FileWriter(file))
+      extraer(archivo)
 
+      buffW.write(lines.mkString("\n"))
+      buffW.close()
 
+      true
+
+    } catch {
+      case e: Exception => {
+        println(e.getMessage)
+        false
+      }
+    }
   }
 
 }
