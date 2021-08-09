@@ -2,18 +2,16 @@ package taller
 
 import org.apache.activemq.ActiveMQConnectionFactory
 
-import java.io.{BufferedWriter, File, FileWriter, PrintWriter}
 import javax.jms.{Message, MessageListener, Session, TextMessage}
-import scala.List
 
 class appDB {
 
-  def procesaMensaje(msj: String): Unit = {
+  def procesaMensaje(): Unit = {
     val cFactory = new ActiveMQConnectionFactory()
     val connection = cFactory.createConnection()
     connection.start()
 
-    val session = connection.createSession(false, Session.AUTO_KNOWLEDGE)
+    val session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
     val queue = session.createQueue("myQueue")
 
     val consumer = session.createConsumer(queue)
@@ -22,8 +20,9 @@ class appDB {
       def onMessage(message: Message): Unit = {
         message match {
           case text: TextMessage => {
-            println(r"Mensaje en cola myQueue: $text\n")
-            addData(text)
+            //println(s"Mensaje en cola myQueue: ${text.getText}\n")
+            val slicedStr = text.getText.split(",")
+            addData(new Song(slicedStr(0), slicedStr(1), slicedStr(2)))
           }
           case _ => throw new Exception()
         }
@@ -32,16 +31,27 @@ class appDB {
     consumer.setMessageListener(listener)
   }
 
-  def addData(data: String): Int = {
+  def addData(data: Song): Int = {
     try {
       ServicioDB.add(data)
-      1
     } catch {
       case _: Exception => -1
     }
   }
 
-  def extraccion(datos: List[String]): List[String] = {
+  def extraccion(): Boolean = {
+    try {
+      ServicioExtraccion.obtenerYEnviar()
+    } catch {
+      case _: Exception => false
+    }
 
+  }
+}
+
+object DB{
+  def main(args: Array[String]): Unit= {
+    val proc = new appDB
+    proc.extraccion()
   }
 }

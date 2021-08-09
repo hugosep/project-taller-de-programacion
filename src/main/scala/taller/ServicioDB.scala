@@ -7,10 +7,10 @@ object ServicioDB {
 
   val host: String = ""
 
-  def add(data: Map[String, String]): Boolean = {
-    val driver = "com.mysql.jdbc.Driver"
+  def add(data: Song): Int = {
+    val driver = "com.mysql.cj.jdbc.Driver"
     val url = "jdbc:mysql://localhost:3306/MUSICA"
-    val username = "root"
+    val username = "root2"
     val password = "1234+"
 
     var connection: Connection = null
@@ -21,25 +21,27 @@ object ServicioDB {
       connection = DriverManager.getConnection(url, username, password)
 
       val statement = connection.createStatement()
-      val resultSet = statement.executeQuery(s"INSERT INTO CANCIONES(NOMBRE, GENERO, AUTOR) " +
-        s"VALUES (${data["nombre"]}, ${data["genero"]}, ${data["autor"]})")
+      val query = s"INSERT INTO CANCIONES (nombre,genero,autor)" +
+        s" VALUES ('${data.name}', '${data.genre}', '${data.author}')"
+      println(query)
+      val resultSet = statement.executeUpdate(query)
 
-      if (!resultSet.next)
+      if (resultSet == 1)
         println("Inserted successfully.\n")
       else {
-        while(resultSet.next){
-          println(s"Problem: $resultSet\n")
-        }
+        println("Hubo un probleman")
       }
 
       connection.close()
-      true
+      1
 
     } catch {
       case e: Throwable => {
         e.printStackTrace()
-        false
+        0
       }
+    }finally {
+      connection.close()
     }
   }
 }
