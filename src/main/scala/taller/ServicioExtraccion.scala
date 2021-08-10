@@ -11,7 +11,36 @@ object ServicioExtraccion {
   val username = "root"
   val password = "1234+"
 
-  def obtenerYEnviar(data: String): List[String] = {
+  def obtenerYEnviar(data: String): String = {
+    var connection: Connection = null
+
+    try {
+      val cFactory = new ActiveMQConnectionFactory()
+      val connectToQueue = cFactory.createConnection()
+      connectToQueue.start()
+
+      val session = connectToQueue.createSession(false, Session.AUTO_ACKNOWLEDGE)
+      val queue = session.createQueue("mqDistribuir")
+
+      val productor = session.createProducer(queue)
+
+      val newSong = session.createTextMessage("")
+
+      productor.send(newSong)
+
+      productor.close()
+      session.close()
+      connection.close()
+      "done"
+    } catch {
+      case e: Throwable => {
+        e.printStackTrace()
+        "problem"
+      }
+    }
+  }
+
+  def queryToDB(): Unit = {
     var connection: Connection = null
 
     try {
@@ -20,33 +49,24 @@ object ServicioExtraccion {
       connection = DriverManager.getConnection(url, username, password)
 
       val statement = connection.createStatement()
-      val resultSet = statement.executeQuery("SELECT id, nombre, FROM categoria")
 
-      while(resultSet.next()) {
-        val id = resultSet.getString("id")
-        val nombre = resultSet.getString("nombre")
-        println(s"id, nombre: $id, $nombre", id, nombre)
+      val resultSet = statement.executeQuery("SELECT * FROM CANCIONES")
+
+      if (!resultSet.next) {
+        println("Inserted successfully.\n")
+        val name: String = resultSet.getString("nombre")
+        val genre: String = resultSet.getString("genero")
+        val author: String = resultSet.getString("autor")
+        songs = songs :+ new Song(name, genre, author)
+      } else {
+        println(s"Problem: $resultSet\n")
       }
+
       connection.close()
 
-      val cFactory = new ActiveMQConnectionFactory()
-      val connectToQueue = cFactory.createConnection()
-      connectToQueue.start()
-
-      val session = connectToQueue.createSession(false, Session.AUTO_KNOWLEDGE)
-      val queue = session.createQueue("mqDistribuir")
-
-      val productor = session.createProducer(queue)
-
-      println(s"Recibido: $txt")
-
-      productor.close()
-      session.close()
-      connection.close()
     } catch {
       case e: Throwable => {
         e.printStackTrace()
-        false
       }
     }
   }

@@ -7,13 +7,14 @@ object ServicioDB {
 
   val host: String = ""
 
-  def add(data: Map[String, String]): Boolean = {
+  def add(data: String): Boolean = {
     val driver = "com.mysql.jdbc.Driver"
     val url = "jdbc:mysql://localhost:3306/MUSICA"
     val username = "root"
     val password = "1234+"
 
     var connection: Connection = null
+    var songs: List[Song] = List()
 
     try {
       Class.forName(driver)
@@ -21,13 +22,22 @@ object ServicioDB {
       connection = DriverManager.getConnection(url, username, password)
 
       val statement = connection.createStatement()
-      val resultSet = statement.executeQuery(s"INSERT INTO CANCIONES(NOMBRE, GENERO, AUTOR) " +
-        s"VALUES (${data["nombre"]}, ${data["genero"]}, ${data["autor"]})")
 
-      if (!resultSet.next)
+
+      val tempLine: String = data
+                        .replace(" ", "")
+                        .replace("\n", "")
+                        .strip()
+
+      val song = tempLine.split(",")
+
+      val resultSet = statement.executeQuery(s"INSERT INTO CANCIONES(NOMBRE, GENERO, AUTOR) " +
+        s"VALUES (${song(0)}, ${song(1)}, ${song(2)})")
+
+      if (!resultSet.next) {
         println("Inserted successfully.\n")
-      else {
-        while(resultSet.next){
+      } else {
+        while (resultSet.next) {
           println(s"Problem: $resultSet\n")
         }
       }

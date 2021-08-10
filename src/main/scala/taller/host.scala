@@ -2,7 +2,9 @@ package taller
 
 import org.apache.activemq.ActiveMQConnectionFactory
 
+import java.sql.{Connection, DriverManager}
 import javax.jms.{Message, MessageListener, Session, TextMessage}
+import scala.io.StdIn.readLine
 
 class host {
 
@@ -11,7 +13,7 @@ class host {
     val connection = cFactory.createConnection()
     connection.start()
 
-    val session = connection.createSession(false, Session.AUTO_KNOWLEDGE)
+    val session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
     val queue = session.createQueue(nombreCola)
 
     val consumer = session.createConsumer(queue)
@@ -29,5 +31,16 @@ class host {
       }
     }
     consumer.setMessageListener(listener)
+
+    while(true) {
+      val update = readLine("Imprimir contenido DB? (y/n): ")
+      update match {
+        case "y" => {
+          ServicioExtraccion.queryToDB()
+          println("\n")
+        }
+        case "n" => println("Cerrando host...")
+      }
+    }
   }
 }

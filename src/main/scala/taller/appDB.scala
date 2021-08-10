@@ -13,8 +13,8 @@ class appDB {
     val connection = cFactory.createConnection()
     connection.start()
 
-    val session = connection.createSession(false, Session.AUTO_KNOWLEDGE)
-    val queue = session.createQueue("myQueue")
+    val session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
+    val queue = session.createQueue("mqRegistro")
 
     val consumer = session.createConsumer(queue)
 
@@ -22,8 +22,8 @@ class appDB {
       def onMessage(message: Message): Unit = {
         message match {
           case text: TextMessage => {
-            println(r"Mensaje en cola myQueue: $text\n")
-            addData(text)
+            println(s"Mensaje en cola mqRegistro: $text\n")
+            addData(text.toString)
           }
           case _ => throw new Exception()
         }
@@ -42,6 +42,6 @@ class appDB {
   }
 
   def extraccion(datos: List[String]): List[String] = {
-
+      ServicioExtraccion.queryToDB()
   }
 }
