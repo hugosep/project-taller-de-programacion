@@ -52,6 +52,7 @@ class appDB {
 object DB{
   def main(args: Array[String]): Unit= {
     val proc = new appDB
+    proc.procesaMensaje()
     proc.extraccion()
   }
 }

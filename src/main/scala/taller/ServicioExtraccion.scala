@@ -8,7 +8,8 @@ import javax.jms.{Session, TextMessage}
 object ServicioExtraccion {
   val driver = "com.mysql.cj.jdbc.Driver"
   val url = "jdbc:mysql://localhost:3306/MUSICA"
-  val username = "root2"
+  //val username = "root2"
+  val username = "root"
   val password = "1234+"
 
   def obtenerYEnviar(): Boolean = {
@@ -23,7 +24,7 @@ object ServicioExtraccion {
       val query = s"SELECT nombre,genero,autor from canciones"
       val resultSet = statement.executeQuery(query)
 
-      val cFactory = new ActiveMQConnectionFactory()
+      val cFactory = new ActiveMQConnectionFactory("tcp://localhost:61616?jms.prefetchPolicy.queuePrefetch=1")
       val connectToQueue = cFactory.createConnection()
       connectToQueue.start()
 

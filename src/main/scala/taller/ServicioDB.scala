@@ -10,7 +10,8 @@ object ServicioDB {
   def add(data: Song): Int = {
     val driver = "com.mysql.cj.jdbc.Driver"
     val url = "jdbc:mysql://localhost:3306/MUSICA"
-    val username = "root2"
+    //val username = "root2"
+    val username = "root"
     val password = "1234+"
 
     var connection: Connection = null

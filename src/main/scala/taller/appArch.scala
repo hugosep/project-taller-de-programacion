@@ -8,7 +8,7 @@ import javax.jms.Session
 class appArch {
   val activeMQURL: String = "tcp://localhost:61616"
   var lines: List[String] = _
-  val archivo = ""
+  val archivo = "./data.txt"
 
   def extraer(archivo: String): List[String] = {
     ServicioArchivo.leer(archivo)
@@ -35,7 +35,7 @@ class appArch {
 object MainArch{
   def main(args: Array[String]): Unit= {
     val archivo = new appArch
-    if(archivo.enviarArchivo(archivo.extraer("data.txt"))){
+    if(archivo.enviarArchivo(archivo.extraer("data2.txt"))){
       println("Todo encolado")
     }
   }
