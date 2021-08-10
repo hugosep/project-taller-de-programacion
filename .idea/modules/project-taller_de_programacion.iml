@@ -12,7 +12,16 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.6:jar" level="project" />
-    <orderEntry type="library" name="apache.activemq.all" level="project" />
-    <orderEntry type="library" name="mysql.connector.java" level="project" />
+    <orderEntry type="module-library">
+      <library name="sbt: unmanaged-jars">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/activemq-all-5.16.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/mysql-connector-java-8.0.26.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/protobuf-java-3.11.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
