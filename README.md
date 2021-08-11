@@ -34,4 +34,6 @@ Correr la clase appDB, la cual consume desde la cola mqRegistro e inserta las nu
 
 # host
 
-La clase host debe ser ejecutada 3 veces en paralelo. En Intelij, esto debe ser configurado previamente: en la barra superior acceder a "Run" - Edit configuration - Seleccionar aplicación de host en el menú de la izquierda - Marcar casilla "allow parallel run" o "allow multiple instances" en el extremo superior de la ventana - Ejecutar host 3 veces
+La clase host debe ser ejecutada 3 veces en paralelo. En Intelij, esto debe ser configurado previamente: en la barra superior acceder a "Run" - Edit configuration - Seleccionar aplicación de host en el menú de la izquierda - Marcar casilla "allow parallel run" o "allow multiple instances" en el extremo superior de la ventana - Ejecutar host 3 veces.
+
+Ver en funcionamiento:[Link](https://youtu.be/D87Fc6UFoCA)
