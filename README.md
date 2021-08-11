@@ -1,5 +1,13 @@
 # Proyecto Taller de programación
 
+# Integrantes:
+
+* Gonzalo Larraín
+* Martín Crisostomo
+* Nicolás Pino
+* Hugo Sepulveda
+* Gabriel Vergara
+
 # Dependencias:
 Agregar manualmente o con Maven las siguientes dependencias:
 
@@ -36,4 +44,4 @@ Correr la clase appDB, la cual consume desde la cola mqRegistro e inserta las nu
 
 La clase host debe ser ejecutada 3 veces en paralelo. En Intelij, esto debe ser configurado previamente: en la barra superior acceder a "Run" - Edit configuration - Seleccionar aplicación de host en el menú de la izquierda - Marcar casilla "allow parallel run" o "allow multiple instances" en el extremo superior de la ventana - Ejecutar host 3 veces.
 
-Ver en funcionamiento:[Link](https://youtu.be/D87Fc6UFoCA)
+**Ver en funcionamiento:** [Link](https://youtu.be/D87Fc6UFoCA)
