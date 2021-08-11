@@ -23,7 +23,7 @@ El archivo data2.txt contiene solo unas pocas líneas (entre 50 y 100) extraída
 
 ## Ejecución:
 
-Para ejecutar, se debe seleccionar **Run...** y en el orden **DB, host (x3), appArch**:
+Para ejecutar, se debe seleccionar **Run...** y en el orden **DB, appArch, host (x3)**:
 
 
 # appArch:
